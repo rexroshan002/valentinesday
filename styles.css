@@ -1,172 +1,101 @@
 :root {
-    --pink: #FF007F;
-    --purple: #7000FF;
-    --bg: #050505;
-    --heart-scale: 1;
-    --meter-fill: 0%;
-}
-
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    user-select: none;
-    -webkit-tap-highlight-color: transparent;
+    --neon-red: #ff2e63;
+    --dark-bg: #080808;
+    --glass: rgba(255, 255, 255, 0.1);
 }
 
 body {
-    background-color: var(--bg);
-    color: #fff;
-    font-family: 'Montserrat', sans-serif;
-    overflow: hidden; /* Prevents pull-to-refresh */
-    touch-action: none;
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--dark-bg);
+    color: white;
+    overflow-x: hidden;
 }
 
-#app {
-    width: 100vw;
+/* Ignition Screen */
+#ignition-screen {
     height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
-.screen {
-    position: absolute;
-    width: 100%;
-    height: 100%;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    text-align: center;
-    padding: 20px;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 0.4s ease;
+    background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&q=80&w=1000'); /* JDM Background */
+    background-size: cover;
 }
 
-.screen.active {
-    opacity: 1;
-    pointer-events: auto;
-}
-
-.hidden {
-    display: none !important;
-}
-
-/* Typography & Glows */
-.glow-text {
-    color: var(--pink);
-    text-shadow: 0 0 10px var(--pink), 0 0 20px var(--pink);
-    font-size: 3rem;
-    margin-bottom: 10px;
-}
-
-.glow-text-purple {
-    color: var(--purple);
-    text-shadow: 0 0 10px var(--purple), 0 0 20px var(--purple);
-    font-size: 2.5rem;
-    margin-bottom: 20px;
-}
-
-.massive {
-    font-size: 6rem;
-}
-
-p {
-    font-weight: 700;
-    color: #aaa;
-    margin-bottom: 30px;
-}
-
-/* UI Elements */
-.main-button {
-    background: transparent;
-    border: 3px solid var(--pink);
-    color: var(--pink);
-    padding: 15px 40px;
-    font-size: 1.5rem;
-    font-family: 'Montserrat', sans-serif;
+.anime-text {
+    font-size: 5rem;
     font-weight: 900;
-    border-radius: 50px;
-    box-shadow: 0 0 15px rgba(255, 0, 127, 0.4);
+    font-style: italic;
+    letter-spacing: -5px;
+    text-shadow: 4px 4px var(--neon-red);
+}
+
+button {
+    padding: 15px 30px;
+    background: var(--neon-red);
+    border: none;
+    color: white;
+    font-weight: bold;
     cursor: pointer;
-    transition: all 0.2s;
+    clip-path: polygon(10% 0, 100% 0, 90% 100%, 0 100%);
+    transition: 0.3s;
 }
 
-.main-button:active {
-    background: var(--pink);
-    color: var(--bg);
-    box-shadow: 0 0 30px var(--pink);
+button:hover {
+    transform: scale(1.1) skew(-10deg);
 }
 
-/* The Action Phase */
-.heart-container {
-    width: 150px;
-    height: 150px;
-    margin-bottom: 40px;
-    transform: scale(var(--heart-scale));
-    transition: transform 0.1s ease-out;
-    filter: drop-shadow(0 0 20px var(--pink));
+/* Dashboard Layout */
+.hidden { display: none; }
+
+#main-content {
+    padding: 20px;
+    max-width: 800px;
+    margin: auto;
 }
 
-#status-text {
-    font-size: 2rem;
-    color: #fff;
-    margin-bottom: 50px;
-    animation: pulseText 0.5s infinite alternate;
+.stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-top: 30px;
 }
 
-.meter-wrapper {
-    position: absolute;
-    bottom: 40px;
-    width: 80%;
-    height: 30px;
-    background: #222;
-    border-radius: 15px;
+.stat-card {
+    background: var(--glass);
+    padding: 20px;
+    border-left: 4px solid var(--neon-red);
+    border-radius: 8px;
+}
+
+/* Loyalty Meter Animation */
+.gauge-container {
+    background: #333;
+    height: 10px;
+    border-radius: 5px;
     overflow: hidden;
-    border: 2px solid #444;
 }
 
-#energy-meter {
+.gauge-fill {
     height: 100%;
-    width: var(--meter-fill);
-    background: linear-gradient(90deg, var(--purple), var(--pink));
-    box-shadow: 0 0 15px var(--pink);
-    transition: width 0.2s ease-out;
+    background: var(--neon-red);
+    animation: charge 2s ease-out;
 }
 
-/* The Reveal Card */
-.card {
-    background: rgba(20, 20, 20, 0.9);
-    border: 2px solid var(--purple);
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 0 30px rgba(112, 0, 255, 0.5);
-    max-width: 90%;
+@keyframes charge {
+    from { width: 0%; }
+    to { width: 100%; }
 }
 
-/* Animations */
-@keyframes pulseText {
-    from { transform: scale(1); opacity: 0.8; }
-    to { transform: scale(1.1); opacity: 1; }
+.video-placeholder {
+    width: 100%;
+    aspect-ratio: 16/9;
+    background: #1a1a1a;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px dashed #444;
 }
 
-@keyframes screenShake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-}
-
-.shake-effect {
-    animation: screenShake 0.2s;
-}
+.highlight { color: var(--neon-red); }
