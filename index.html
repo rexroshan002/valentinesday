@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Heartbeat Shake-Sync</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700;900&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div id="app">
+        <section id="phase-wait" class="screen active">
+            <h1 class="glow-text">READY?</h1>
+            <p>Wait for your partner, then tap to sync.</p>
+            <button id="start-btn" class="main-button">I'M READY</button>
+        </section>
+
+        <section id="phase-countdown" class="screen hidden">
+            <h1 id="countdown-text" class="glow-text massive">3</h1>
+        </section>
+
+        <section id="phase-action" class="screen hidden">
+            <div class="heart-container">
+                <svg id="main-heart" viewBox="0 0 32 29.6">
+                    <path fill="var(--pink)" d="M23.6,0c-3.4,0-6.3,2.7-7.6,5.6C14.7,2.7,11.8,0,8.4,0C3.8,0,0,3.8,0,8.4c0,9.4,9.5,11.9,16,21.2c6.1-9.3,16-12.1,16-21.2C32,3.8,28.2,0,23.6,0z"/>
+                </svg>
+            </div>
+            <h2 id="status-text">SHAKE IT!</h2>
+            
+            <div class="meter-wrapper">
+                <div id="energy-meter"></div>
+            </div>
+        </section>
+
+        <section id="phase-reveal" class="screen hidden">
+            <div class="card">
+                <h2 class="glow-text-purple">100% SYNCED!</h2>
+                <p id="secret-message">🎟️ <strong>Date Night Voucher</strong><br><br>Valid for one "No-Questions-Asked" Dessert Date. I love you!</p>
+            </div>
+        </section>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
